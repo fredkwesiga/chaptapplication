@@ -1,0 +1,24 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Add your deployment steps here, such as deploying to DigitalOcean
+      - name: Deploy Chat to DigitalOcean
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.206.81.30.225 }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            mkdir test
+            cd test
+            git clone https://github.com/fredkwesiga/chaptapplication
+            echo 'Deployment successful to digital oceans'
